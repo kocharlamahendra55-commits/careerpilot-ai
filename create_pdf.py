@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+
+def create_resume():
+    """Create a resume file - try PDF first, fallback to text"""
+    content = """JOHN SMITH
+Senior Software Engineer
+Email: john.smith@email.com | Phone: (555) 123-4567
+
+PROFESSIONAL SUMMARY
+Experienced Senior Software Engineer with 8+ years of expertise in full-stack web development, cloud architecture, and team leadership. Proven track record of delivering scalable applications using React, Node.js, and AWS services.
+
+TECHNICAL SKILLS
+Frontend: React, TypeScript, JavaScript, HTML5, CSS3, Redux, Next.js, Angular
+Backend: Node.js, Python, Express.js, RESTful APIs, GraphQL, Microservices  
+Database: PostgreSQL, MongoDB, Redis, MySQL, Prisma ORM
+Cloud & DevOps: AWS (EC2, S3, Lambda, RDS), Docker, Kubernetes, CI/CD, Jenkins
+
+PROFESSIONAL EXPERIENCE
+Senior Software Engineer - TechCorp Solutions (January 2020 - Present)
+• Led development of enterprise SaaS platform serving 50,000+ users with 99.9% uptime
+• Architected and implemented microservices architecture reducing system latency by 40%
+• Mentored team of 5 junior developers and conducted code reviews
+• Implemented automated testing strategies increasing code coverage from 60% to 95%
+
+Full Stack Developer - StartupXYZ (March 2018 - December 2019)
+• Built responsive web applications using React and Node.js for fintech startup
+• Designed and implemented RESTful APIs handling 1M+ requests per day
+• Optimized database queries reducing response time by 60%
+
+Software Developer - WebDev Agency (June 2016 - February 2018)
+• Developed custom websites and web applications for diverse client portfolio
+• Collaborated with designers to implement pixel-perfect UI/UX designs
+• Maintained and enhanced legacy PHP and WordPress applications
+
+EDUCATION
+Bachelor of Science in Computer Science
+University of Technology | Graduated: May 2016 | GPA: 3.8/4.0
+
+CERTIFICATIONS
+• AWS Certified Solutions Architect - Associate (2022)
+• Certified Kubernetes Administrator (CKA) (2021)
+• Google Cloud Professional Developer (2020)
+
+KEY PROJECTS
+• E-commerce Platform: Built scalable online marketplace using MERN stack serving 10K+ daily active users
+• Real-time Analytics Dashboard: Developed React-based dashboard with WebSocket integration for live data visualization
+• Mobile API Gateway: Designed RESTful API gateway handling authentication, rate limiting, and request routing"""
+
+    # Try to create PDF using reportlab
+    try:
+        from reportlab.pdfgen import canvas
+        from reportlab.lib.pagesizes import letter
+        from reportlab.lib.units import inch
+        
+        # Create PDF
+        c = canvas.Canvas("john_smith_resume.pdf", pagesize=letter)
+        width, height = letter
+        
+        # Add content to PDF
+        y_position = height - inch
+        line_height = 14
+        
+        lines = content.split('\n')
+        for line in lines:
+            if y_position < inch:  # Start new page if needed
+                c.showPage()
+                y_position = height - inch
+            
+            c.drawString(inch, y_position, line[:80])  # Limit line length
+            y_position -= line_height
+        
+        c.save()
+        print("PDF created successfully: john_smith_resume.pdf")
+        return "john_smith_resume.pdf"
+        
+    except ImportError:
+        print("reportlab not available, creating text file instead")
+    except Exception as e:
+        print(f"Error creating PDF: {e}, creating text file instead")
+    
+    # Fallback to text file
+    with open("john_smith_resume.txt", "w", encoding="utf-8") as f:
+        f.write(content)
+    print("Text resume created: john_smith_resume.txt")
+    return "john_smith_resume.txt"
+
+if __name__ == "__main__":
+    create_resume()

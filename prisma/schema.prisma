@@ -1,0 +1,186 @@
+// Prisma schema for CareerPilot AI – Prisma 7 with libsql adapter
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ── Models ───────────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      String   @default("STUDENT")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  studentProfile   StudentProfile?
+  recruiterProfile RecruiterProfile?
+  resumes          Resume[]
+  applications     Application[]
+  logs             SystemLog[]
+  passwordResetTokens PasswordResetToken[]
+
+  @@map("users")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("password_reset_tokens")
+}
+
+model StudentProfile {
+  id            String @id @default(cuid())
+  userId        String @unique
+  fullName      String
+  phone         String @default("")
+  college       String @default("")
+  degree        String @default("")
+  preferredRole String @default("")
+  location      String @default("")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("student_profiles")
+}
+
+model RecruiterProfile {
+  id            String @id @default(cuid())
+  userId        String @unique
+  companyName   String
+  recruiterName String
+  phone         String @default("")
+  website       String @default("")
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobs Job[]
+
+  @@map("recruiter_profiles")
+}
+
+model Resume {
+  id              String   @id @default(cuid())
+  userId          String
+  filename        String
+  originalText    String   @default("")
+  fileSize        Int      @default(0)
+  fileType        String   @default("pdf")
+  jobDescription  String   @default("")
+  status          String   @default("PROCESSING")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user         User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  analysis     AnalysisReport?
+  jobMatches   JobMatch[]
+  applications Application[]
+
+  @@map("resumes")
+}
+
+model AnalysisReport {
+  id                    String   @id @default(cuid())
+  resumeId              String   @unique
+  atsScore              Int      @default(0)
+  summary               String   @default("")
+  formattingScore       Int      @default(0)
+  impactVerbScore       Int      @default(0)
+  skillsMatchScore      Int      @default(0)
+  experienceScore       Int      @default(0)
+  educationScore        Int      @default(0)
+  strengths             String   @default("[]")
+  weaknesses            String   @default("[]")
+  hiddenSkills          String   @default("[]")
+  keywordSuggestions    String   @default("[]")
+  grammarFeedback       String   @default("[]")
+  formattingFeedback    String   @default("[]")
+  skillsGap             String   @default("[]")
+  courseRecommendations String   @default("[]")
+  roadmap               String   @default("{}")
+  interviewQuestions    String   @default("[]")
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  resume Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@map("analysis_reports")
+}
+
+model JobMatch {
+  id              String   @id @default(cuid())
+  resumeId        String
+  jobTitle        String   @default("")
+  jobDescription  String   @default("")
+  matchScore      Int      @default(0)
+  skillsMatching  String   @default("[]")
+  skillsMissing   String   @default("[]")
+  keywordsFound   String   @default("[]")
+  keywordsMissing String   @default("[]")
+  fitAnalysis     String   @default("")
+  improvementPlan String   @default("[]")
+  createdAt       DateTime @default(now())
+
+  resume Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@map("job_matches")
+}
+
+model Job {
+  id           String   @id @default(cuid())
+  recruiterId  String
+  title        String
+  company      String
+  description  String   @default("")
+  location     String   @default("")
+  salary       String   @default("")
+  requirements String   @default("[]")
+  isActive     Boolean  @default(true)
+  status       String   @default("DRAFT")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  recruiter    RecruiterProfile @relation(fields: [recruiterId], references: [id], onDelete: Cascade)
+  applications Application[]
+
+  @@map("jobs")
+}
+
+model Application {
+  id        String   @id @default(cuid())
+  jobId     String
+  userId    String
+  resumeId  String?
+  status    String   @default("APPLIED")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  job    Job     @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resume Resume? @relation(fields: [resumeId], references: [id], onDelete: SetNull)
+
+  @@unique([jobId, userId])
+  @@map("applications")
+}
+
+model SystemLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  details   String   @default("")
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("system_logs")
+}

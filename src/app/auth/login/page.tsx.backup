@@ -1,0 +1,161 @@
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { Eye, EyeOff, Zap, Loader2, BrainCircuit } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+
+export default function LoginPage() {
+  const router = useRouter();
+  const { refresh } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    if (!email || !password) return setError("Email and password are required.");
+
+    setLoading(true);
+    try {
+      console.log("🔐 FRONTEND: Sending login request");
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      console.log("🔐 FRONTEND: Response status:", res.status);
+      console.log("🔐 FRONTEND: Response headers:", [...res.headers.entries()]);
+      console.log("🔐 FRONTEND: Response data:", data);
+      
+      if (!res.ok) return setError(data.error || "Login failed.");
+      
+      // Refresh auth context so the just-set session cookie is read and the user is populated
+      await refresh();
+      console.log("🔐 FRONTEND: About to navigate to:", data.redirect || "/dashboard");
+      router.push(data.redirect || "/dashboard");
+      console.log("🔐 FRONTEND: Calling router.refresh()");
+      router.refresh();
+    } catch (err) {
+      console.log("🔐 FRONTEND: Network error:", err);
+      setError("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#050816] flex items-center justify-center px-4 relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-brand-purple/8 rounded-full blur-3xl pointer-events-none" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md"
+      >
+        {/* Logo */}
+        <div className="flex flex-col items-center mb-8">
+          <Link href="/">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-purple to-brand-indigo flex items-center justify-center shadow-glow mb-4">
+              <BrainCircuit size={22} className="text-white" />
+            </div>
+          </Link>
+          <h1 className="text-2xl font-bold text-white">Welcome Back</h1>
+          <p className="text-white/40 text-sm mt-1">Sign in to your CareerPilot account</p>
+        </div>
+
+        {/* Card */}
+        <div className="glass-card p-8 rounded-2xl border border-white/8">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Email */}
+            <div>
+              <label className="text-xs text-white/40 uppercase tracking-wider mb-1.5 block">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                autoComplete="email"
+                className="w-full bg-white/3 border border-white/8 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/20 outline-none focus:border-brand-purple/50 transition-colors"
+              />
+            </div>
+
+            {/* Password */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-xs text-white/40 uppercase tracking-wider">Password</label>
+                <Link href="/auth/forgot-password" className="text-xs text-brand-purple-light hover:underline">
+                  Forgot Password?
+                </Link>
+              </div>
+              <div className="relative">
+                <input
+                  type={showPass ? "text" : "password"}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  placeholder="Your password"
+                  autoComplete="current-password"
+                  className="w-full bg-white/3 border border-white/8 rounded-xl px-4 py-3 pr-11 text-sm text-white placeholder:text-white/20 outline-none focus:border-brand-purple/50 transition-colors"
+                />
+                <button type="button" onClick={() => setShowPass(!showPass)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors">
+                  {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
+            </div>
+
+            {error && (
+              <motion.p
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-2.5"
+              >
+                {error}
+              </motion.p>
+            )}
+
+            {/* Sign In */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 bg-brand-purple hover:bg-brand-purple/80 disabled:opacity-60 rounded-xl text-white font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-glow-sm"
+            >
+              {loading ? (
+                <><Loader2 size={16} className="animate-spin" /> Signing In...</>
+              ) : (
+                <>
+                  <Zap size={15} />
+                  Sign In
+                </>
+              )}
+            </button>
+          </form>
+
+          <div className="mt-6 pt-5 border-t border-white/6 text-center">
+            <p className="text-sm text-white/30">
+              Don't have an account?{" "}
+              <Link href="/auth/select-role" className="text-brand-purple-light hover:underline font-medium">
+                Create Account
+              </Link>
+            </p>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <p className="text-center text-xs text-white/20 mt-6">
+          By signing in, you agree to our{" "}
+          <span className="text-white/30">Terms of Service</span> and{" "}
+          <span className="text-white/30">Privacy Policy</span>
+        </p>
+      </motion.div>
+    </div>
+  );
+}

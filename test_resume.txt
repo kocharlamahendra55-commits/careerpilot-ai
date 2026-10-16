@@ -1,0 +1,26 @@
+John Doe
+Software Engineer
+Email: john@example.com | Phone: 555-1234
+
+PROFESSIONAL SUMMARY
+Experienced software engineer with 5+ years building scalable web applications.
+
+EXPERIENCE
+Senior Software Engineer - Tech Corp (2020-Present)
+- Developed microservices architecture serving 1M+ users
+- Reduced API response time by 60% through caching optimization
+- Led team of 4 engineers on product feature delivery
+
+Junior Developer - StartupXYZ (2018-2020)
+- Built React frontend components and REST APIs with Node.js
+- Maintained PostgreSQL databases and wrote complex SQL queries
+
+SKILLS
+Languages: JavaScript, TypeScript, Python, SQL
+Frameworks: React, Next.js, Node.js, Express
+Databases: PostgreSQL, MongoDB, Redis
+Tools: Git, Docker, AWS, CI/CD pipelines
+
+EDUCATION
+Bachelor of Science in Computer Science
+State University (2018) - GPA: 3.7/4.0

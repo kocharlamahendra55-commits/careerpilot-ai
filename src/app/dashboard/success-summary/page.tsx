@@ -1,0 +1,237 @@
+﻿"use client";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import {
+  CheckCircle2, Sparkles, TrendingUp, ArrowRight, Target,
+  Award, Zap, Clock, Star
+} from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { ScoreRing } from "@/components/ui/ScoreRing";
+
+export default function SuccessSummaryPage() {
+  const router = useRouter();
+  const [analysis, setAnalysis] = useState<any>(null);
+  const [jobDescription, setJobDescription] = useState("");
+  const [showContinueButton, setShowContinueButton] = useState(false);
+
+  useEffect(() => {
+    // Load analysis data from sessionStorage
+    const storedData = sessionStorage.getItem('resumeAnalysisData');
+    if (!storedData) {
+      router.push('/dashboard/upload');
+      return;
+    }
+
+    try {
+      const data = JSON.parse(storedData);
+      setAnalysis(data.analysis);
+      setJobDescription(data.jobDescription);
+
+      // Show continue button after 3.5 seconds
+      setTimeout(() => {
+        setShowContinueButton(true);
+      }, 3500);
+
+      // Auto-continue after 8 seconds if user doesn't click
+      setTimeout(() => {
+        router.push('/dashboard/job-match');
+      }, 8000);
+    } catch (error) {
+      console.error('Failed to load analysis data:', error);
+      router.push('/dashboard/upload');
+    }
+  }, []);  // Fixed: removed router from deps to prevent infinite loop
+
+  const handleContinue = () => {
+    router.push('/dashboard/job-match');
+  };
+
+  if (!analysis) return null;
+
+  // Extract the strongest achievement from the analysis
+  const topStrength = analysis.strengths?.[0] || "Professional experience identified";
+  const atsScore = analysis.ats_score || 0;
+  const roleMatch = jobDescription || "Your target role";
+
+  // Determine score category and message
+  const getScoreMessage = (score: number) => {
+    if (score >= 85) return { level: "Excellent", color: "text-emerald-400", message: "ATS systems will love your resume" };
+    if (score >= 70) return { level: "Strong", color: "text-blue-400", message: "Your resume is well-optimized" };
+    if (score >= 55) return { level: "Good", color: "text-yellow-400", message: "Solid foundation with room to improve" };
+    return { level: "Developing", color: "text-orange-400", message: "We found clear improvement opportunities" };
+  };
+
+  const scoreInfo = getScoreMessage(atsScore);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-purple-900 flex items-center justify-center p-4">
+      <div className="max-w-2xl mx-auto">
+        {/* Success Animation */}
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center mb-8"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.4 }}
+            className="w-20 h-20 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mx-auto mb-4"
+          >
+            <CheckCircle2 size={40} className="text-emerald-400" />
+          </motion.div>
+          
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="text-3xl font-bold text-white mb-2"
+          >
+            Analysis Complete!
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+            className="text-lg text-white/70"
+          >
+            Your resume has been analyzed with AI precision
+          </motion.p>
+        </motion.div>
+
+        {/* Key Results Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, duration: 0.6 }}
+        >
+          <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
+            <div className="p-6">
+              {/* ATS Score Display */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Target size={18} className="text-brand-purple-light" />
+                    <span className="text-sm font-semibold text-white/80">ATS Compatibility Score</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className={`text-2xl font-bold ${scoreInfo.color}`}>
+                      {atsScore}/100
+                    </span>
+                    <Badge variant="purple" className="text-xs">
+                      {scoreInfo.level}
+                    </Badge>
+                  </div>
+                  <p className="text-sm text-white/60 mt-1">
+                    {scoreInfo.message}
+                  </p>
+                </div>
+                <div className="shrink-0">
+                  <ScoreRing score={atsScore} size={80} />
+                </div>
+              </div>
+
+              {/* Top Achievement Highlight */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.2, duration: 0.5 }}
+                className="border-t border-white/10 pt-6"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center shrink-0">
+                    <Star size={16} className="text-emerald-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white/80 mb-1">
+                      Key Strength Identified:
+                    </p>
+                    <p className="text-sm text-white/70 leading-relaxed">
+                      {topStrength.replace(/^(ACHIEVEMENT:|EXPERTISE:|LEADERSHIP:)\s*/, '')}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Role Context */}
+              {jobDescription && (
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.4, duration: 0.5 }}
+                  className="border-t border-white/10 pt-6 mt-6"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center shrink-0">
+                      <Zap size={16} className="text-blue-400" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-white/80 mb-1">
+                        Target Role Analysis:
+                      </p>
+                      <p className="text-sm text-white/70">
+                        Analyzed for <span className="text-blue-400 font-medium">{jobDescription}</span>
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          </Card>
+        </motion.div>
+
+        {/* Continue Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: showContinueButton ? 1 : 0, y: showContinueButton ? 0 : 20 }}
+          transition={{ duration: 0.4 }}
+          className="text-center mt-8"
+        >
+          <Button 
+            onClick={handleContinue}
+            size="lg"
+            className="px-8 py-3 text-base font-semibold"
+          >
+            <span className="flex items-center gap-2">
+              View Detailed Analysis
+              <ArrowRight size={18} />
+            </span>
+          </Button>
+          
+          <p className="text-xs text-white/40 mt-3 flex items-center justify-center gap-1">
+            <Clock size={12} />
+            Auto-continuing in a few seconds...
+          </p>
+        </motion.div>
+
+        {/* Bottom Enhancement Hints */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2, duration: 0.6 }}
+          className="mt-12 text-center"
+        >
+          <div className="flex items-center justify-center gap-6 text-xs text-white/30">
+            <span className="flex items-center gap-1">
+              <Sparkles size={12} />
+              Job Match Analysis Ready
+            </span>
+            <span className="flex items-center gap-1">
+              <TrendingUp size={12} />
+              Career Roadmap Generated
+            </span>
+            <span className="flex items-center gap-1">
+              <Award size={12} />
+              Interview Prep Available
+            </span>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}

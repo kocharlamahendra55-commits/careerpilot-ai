@@ -1,0 +1,289 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Create the client-side workspace types, capability configuration, request-intent allowlist, retry snapshot builder, and resource/mutation state helpers.": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954160
+      },
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438975252
+      },
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785439335098
+      }
+    ],
+    "1.2 Implement reusable workspace UI primitives using the existing `Card`, `Button`, `Badge`, global dark-mode, and reduced-motion patterns.": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954270
+      },
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438984034
+      },
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785439344489
+      }
+    ],
+    "2.1 Implement pure job form validation, supported-write serialization, local-only disclosure planning, and draft auto-save eligibility/state reduction.": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954325
+      },
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785439362787
+      },
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785439774443
+      }
+    ],
+    "2.2 Build the Job Posting form and isolated create/edit routes with truthful persistence disclosures.": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954369
+      },
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785439852105
+      },
+      {
+        "executionId": "00903b67-e8cf-4448-a206-daaf5529f0f4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785441693441
+      },
+      {
+        "executionId": "00903b67-e8cf-4448-a206-daaf5529f0f4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785442908652
+      },
+      {
+        "executionId": "00903b67-e8cf-4448-a206-daaf5529f0f4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785444670184
+      }
+    ],
+    "3. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954418
+      }
+    ],
+    "4.1 Implement the deterministic Manage Jobs transform and lifecycle request/result reducer.": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954466
+      },
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785439371626
+      },
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785439782361
+      }
+    ],
+    "4.2 Build the Manage Jobs controls, desktop/mobile presentation, and lifecycle flow.": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954513
+      },
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785439862574
+      },
+      {
+        "executionId": "00903b67-e8cf-4448-a206-daaf5529f0f4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785441035295
+      },
+      {
+        "executionId": "00903b67-e8cf-4448-a206-daaf5529f0f4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785442929876
+      },
+      {
+        "executionId": "00903b67-e8cf-4448-a206-daaf5529f0f4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785444675837
+      }
+    ],
+    "5.1 Implement candidate query serialization, current-page sorting, source-fidelity row projection, and a same-ID detail-cache state boundary.": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954560
+      },
+      {
+        "executionId": "47fcc54d-7170-474f-87a3-6f58e0ed5bdd",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785445031302
+      },
+      {
+        "executionId": "47fcc54d-7170-474f-87a3-6f58e0ed5bdd",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785446789725
+      }
+    ],
+    "5.2 Build the Candidate List route, filters, table/mobile cards, pagination, and one-selected-ID detail launcher.": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954636
+      },
+      {
+        "executionId": "47fcc54d-7170-474f-87a3-6f58e0ed5bdd",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785446865273
+      },
+      {
+        "executionId": "47fcc54d-7170-474f-87a3-6f58e0ed5bdd",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785448151944
+      }
+    ],
+    "6. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954692
+      }
+    ],
+    "7.1 Implement the candidate-profile projector and reset-safe detail resource state.": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954733
+      },
+      {
+        "executionId": "47fcc54d-7170-474f-87a3-6f58e0ed5bdd",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785448161693
+      },
+      {
+        "executionId": "47fcc54d-7170-474f-87a3-6f58e0ed5bdd",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785448775352
+      }
+    ],
+    "7.2 Build the Candidate Profile route and source-backed profile sections.": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954773
+      },
+      {
+        "executionId": "47fcc54d-7170-474f-87a3-6f58e0ed5bdd",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785448789977
+      },
+      {
+        "executionId": "47fcc54d-7170-474f-87a3-6f58e0ed5bdd",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785450355480
+      }
+    ],
+    "8.1 Build the current disabled Application Status Actions presentation and D1 feedback boundary.": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954819
+      },
+      {
+        "executionId": "47fcc54d-7170-474f-87a3-6f58e0ed5bdd",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785445033201
+      },
+      {
+        "executionId": "47fcc54d-7170-474f-87a3-6f58e0ed5bdd",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785446433523
+      }
+    ],
+    "9.1 Wire the shared state primitives and retry snapshots through every Phase 2 route/component without changing protected Phase 1.": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954875
+      }
+    ],
+    "10.3 Run the mandatory automated quality gate for the completed, non-blocked Phase 2 work.": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438954942
+      }
+    ],
+    "11. Final checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785438955068
+      }
+    ],
+    "1. Establish the isolated Phase 2 workspace foundation and reusable presentation primitives": [
+      {
+        "executionId": "59cde6b9-f050-4fae-802d-8cc5d8e14da4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785439344541
+      }
+    ],
+    "2. Implement Job Posting create/edit flows within the existing job contract": [
+      {
+        "executionId": "00903b67-e8cf-4448-a206-daaf5529f0f4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785441693513
+      }
+    ],
+    "4. Implement Manage Jobs local transforms, table, and job lifecycle confirmations": [
+      {
+        "executionId": "00903b67-e8cf-4448-a206-daaf5529f0f4",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785444675910
+      }
+    ],
+    "8. Implement the application-status integration gate without any status mutation": [
+      {
+        "executionId": "47fcc54d-7170-474f-87a3-6f58e0ed5bdd",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785446433652
+      }
+    ],
+    "5. Implement Candidate List filtering, returned pagination, page-scoped sorting, and bounded detail enrichment": [
+      {
+        "executionId": "47fcc54d-7170-474f-87a3-6f58e0ed5bdd",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785448152045
+      }
+    ],
+    "7. Implement Candidate Profile source-backed projection and unavailable states": [
+      {
+        "executionId": "47fcc54d-7170-474f-87a3-6f58e0ed5bdd",
+        "chatSessionId": "sess_e492082b-9ea5-441a-9ed6-37b364611b88",
+        "timestamp": 1785450355536
+      }
+    ]
+  }
+}

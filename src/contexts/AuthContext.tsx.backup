@@ -1,0 +1,72 @@
+"use client";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
+
+interface UserProfile {
+  id: string;
+  email: string;
+  role: "STUDENT" | "RECRUITER" | "ADMIN";
+  name: string;
+  profile: Record<string, string> | null;
+}
+
+interface AuthContextType {
+  user: UserProfile | null;
+  loading: boolean;
+  logout: () => Promise<void>;
+  refresh: () => Promise<void>;
+}
+
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  loading: true,
+  logout: async () => {},
+  refresh: async () => {},
+});
+
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  const refresh = useCallback(async () => {
+    try {
+      console.log("🔐 AUTH_CONTEXT: Calling /api/auth/me");
+      const res = await fetch("/api/auth/me");
+      console.log("🔐 AUTH_CONTEXT: /me response status:", res.status);
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data.user);
+      } else {
+        console.log("🔐 AUTH_CONTEXT: /me failed, clearing user");
+        setUser(null);
+      }
+    } catch (err) {
+      console.log("🔐 AUTH_CONTEXT: /me error:", err);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
+
+  const logout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      setUser(null);
+      router.push("/auth/login");
+    }
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, loading, logout, refresh }}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export const useAuth = () => useContext(AuthContext);

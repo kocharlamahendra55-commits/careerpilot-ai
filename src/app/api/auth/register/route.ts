@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Prisma } from "@prisma/client";
 import { findUserByEmail, prisma } from "@/lib/db";
 import { hashPassword } from "@/lib/auth";
 
@@ -66,7 +65,7 @@ export async function POST(req: NextRequest) {
       }
 
       await prisma.$transaction(
-        async (tx: Prisma.TransactionClient) => {
+        async (tx: any) => {
           const user = await tx.user.create({
             data: {
               email: normalizedEmail,

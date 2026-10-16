@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
       }
 
       await prisma.$transaction(
-        async (tx: Prisma.TransactionClient) => {
+        async (tx: any) => {
           const user = await tx.user.create({
             data: {
               email: normalizedEmail,
